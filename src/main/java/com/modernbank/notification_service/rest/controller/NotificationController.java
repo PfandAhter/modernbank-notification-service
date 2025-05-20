@@ -3,6 +3,7 @@ package com.modernbank.notification_service.rest.controller;
 import com.modernbank.notification_service.rest.controller.api.NotificationControllerApi;
 import com.modernbank.notification_service.rest.controller.request.NotificationMessage;
 import com.modernbank.notification_service.rest.controller.response.BaseResponse;
+import com.modernbank.notification_service.rest.service.events.ISendNotificationProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,14 @@ public class NotificationController implements NotificationControllerApi {
 
     private final SimpMessagingTemplate messagingTemplate;
 
+    private final ISendNotificationProducer sendNotificationProducer;
+
     @Override
     public ResponseEntity<BaseResponse> sendNotification(@RequestBody NotificationMessage message) {
+
+        //TODO TEST NOTIFICATION PRODUCER
+        //sendNotificationProducer.produceNotificationSend(message);
+
         // WebSocket ile /topic/notifications kanalına mesaj gönder
         Map<String,Object> notification = new HashMap<>(); //TODO: BURAYI KAFKAYA YERLESTIREREK DAHA GUVENLI ISLEM YAPILMASINI SAGLA.
 
