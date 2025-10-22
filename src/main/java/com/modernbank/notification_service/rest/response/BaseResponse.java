@@ -1,4 +1,4 @@
-package com.modernbank.notification_service.rest.controller.response;
+package com.modernbank.notification_service.rest.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

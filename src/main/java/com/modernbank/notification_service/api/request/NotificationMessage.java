@@ -1,4 +1,4 @@
-package com.modernbank.notification_service.rest.controller.request;
+package com.modernbank.notification_service.api.request;
 
 import lombok.Getter;
 import lombok.Setter;
