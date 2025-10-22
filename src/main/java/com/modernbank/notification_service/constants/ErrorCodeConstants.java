@@ -59,4 +59,6 @@ public class ErrorCodeConstants {
     public static final String BANK_NOT_FOUND = "H0028";
 
     public static final String PDF_GENERATION_FAILED = "H0029";
+
+    public static final String NOTIFICATION_NOT_FOUND = "H0030";
 }

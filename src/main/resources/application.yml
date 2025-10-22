@@ -1,5 +1,19 @@
 
 spring:
+  datasource:
+    password: springstudent
+    username: springstudent
+    url: jdbc:mysql://localhost:3306/modern_bank_notification_service
+  jpa:
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
   kafka:
     producer:
       bootstrap-servers: localhost:9092
@@ -15,10 +29,10 @@ spring:
           deserializer:
             value:
               delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
-              trusted.packages: "com.modernbank.notification_service.rest.controller.request"
+              trusted.packages: "com.modernbank.notification_service.api.request"
   application:
     name: notification-service
   main:
     banner-mode: off
 server:
-  port: 8090
+  port: 8082
