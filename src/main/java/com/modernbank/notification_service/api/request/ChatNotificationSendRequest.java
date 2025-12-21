@@ -8,9 +8,12 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class ChatNotificationSendRequest extends BaseRequest {
+public class ChatNotificationSendRequest {
     private String message;
     private String type;
+    private String title;
+    private String userId;
+    private String level;
     private Map<String, Object> arguments;
 
     private LocalDateTime time;

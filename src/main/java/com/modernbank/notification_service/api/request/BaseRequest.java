@@ -21,9 +21,12 @@ public class BaseRequest {
     @JsonIgnore
     private String token;
 
+    @JsonIgnore
     private String userId;
 
     private String userRole;
 
     private String userEmail;
+
+    private String correlationId;
 }

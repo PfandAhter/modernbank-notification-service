@@ -12,6 +12,7 @@ public class ChatNotificationModel {
     private String userId;
     private String message;
     private String title;
+    private String level;
     private String type;
     private Map<String, Object> arguments;
 
