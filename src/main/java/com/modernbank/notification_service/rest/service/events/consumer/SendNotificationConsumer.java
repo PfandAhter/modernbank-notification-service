@@ -31,6 +31,7 @@ public class SendNotificationConsumer {
         notification.put("title", notificationMessage.getTitle());
         notification.put("type" , notificationMessage.getType());
         notification.put("message", notificationMessage.getMessage());
+        notification.put("arguments", notificationMessage.getArguments());
 
         notificationRepository.save(Notification.builder()
                 .userId(notificationMessage.getUserId())
@@ -42,7 +43,33 @@ public class SendNotificationConsumer {
                 .isDeleted(false)
                 .build());
 
+        if(notificationMessage.getUserId().equals("BROADCAST")){
+            log.info("Broadcasting notification to all users");
+            simpMessagingTemplate.convertAndSend("/topic/broadcast", notification);
+            return;
+        }
+
         log.info("Sending notification to user: {}", notificationMessage.getUserId());
+        simpMessagingTemplate.convertAndSend("/user/"+ notificationMessage.getUserId() + "/notifications", notification);
+    }
+
+    @KafkaListener(topics = "notification-send-no-persist", groupId = "notification-service", containerFactory = "sendNotificationKafkaListenerContainerFactory")
+    public void consumeNotificationSendNoPersist(NotificationMessage notificationMessage){
+        Map<String,Object> notification = new HashMap<>();
+
+        notification.put("id", UUID.randomUUID().toString());
+        notification.put("title", notificationMessage.getTitle());
+        notification.put("type" , notificationMessage.getType());
+        notification.put("message", notificationMessage.getMessage());
+        notification.put("arguments", notificationMessage.getArguments());
+
+        if(notificationMessage.getUserId().equals("BROADCAST")){
+            log.info("Broadcasting notification to all users (no persist)");
+            simpMessagingTemplate.convertAndSend("/topic/broadcast", notification);
+            return;
+        }
+
+        log.info("Sending notification to user (no persist): {}", notificationMessage.getUserId());
         simpMessagingTemplate.convertAndSend("/user/"+ notificationMessage.getUserId() + "/notifications", notification);
     }
 

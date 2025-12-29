@@ -2,7 +2,7 @@ package com.modernbank.notification_service.controller;
 
 import com.modernbank.notification_service.api.ChatNotificationControllerApi;
 import com.modernbank.notification_service.api.request.ChatNotificationSendRequest;
-import com.modernbank.notification_service.rest.response.BaseResponse;
+import com.modernbank.notification_service.api.response.BaseResponse;
 import com.modernbank.notification_service.rest.service.ChatNotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
