@@ -15,7 +15,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         // enableSimpleBroker ile direkt publish-subscribe mantığı sağlanır
-        registry.enableSimpleBroker("/user"); // /user kanalına doğrudan mesaj göndereceğiz
+        registry.enableSimpleBroker("/user", "/topic"); // /user kanalına doğrudan mesaj göndereceğiz
         registry.setApplicationDestinationPrefixes("/app"); // Client'ın mesaj gönderdiği endpoint prefix
         // setUserDestinationPrefix GEREK YOK çünkü convertAndSendToUser() kullanmıyoruz
     }

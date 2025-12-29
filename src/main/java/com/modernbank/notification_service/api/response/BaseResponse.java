@@ -1,33 +1,28 @@
 package com.modernbank.notification_service.api.response;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.modernbank.notification_service.constants.ErrorCodeConstants;
+import com.modernbank.notification_service.constants.ResponseStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
-@JsonPropertyOrder({
-            "Status",
-        "IslemKodu",
-        "IslemMesaji"
-})
+@NoArgsConstructor
+
 public class BaseResponse {
-    @JsonProperty("Status")
-    private String status = "1";
 
-    @JsonProperty("IslemKodu")
-    private String processCode = "SUCCESS";
+    private String status = ResponseStatus.SUCCESS_CODE;
 
-    @JsonProperty("IslemMesaji")
-    private String processMessage = "SUCCESS";
+    private String processCode = ErrorCodeConstants.SUCCESS;
 
-    public BaseResponse(){
-
-    }
+    private String processMessage = ResponseStatus.PROCESS_SUCCESS;
 
     public BaseResponse(String processMessage){
+        this.processCode = ResponseStatus.PROCESS_SUCCESS;
         this.processMessage = processMessage;
     }
 }

@@ -2,7 +2,9 @@ package com.modernbank.notification_service.rest.service.events.producer;
 
 
 import com.modernbank.notification_service.api.request.ChatNotificationSendRequest;
+import com.modernbank.notification_service.api.request.ForceLogoutUserRequest;
 import com.modernbank.notification_service.api.request.NotificationMessage;
+import com.modernbank.notification_service.api.request.SetMaintenanceModeRequest;
 import com.modernbank.notification_service.model.ChatNotificationModel;
 import com.modernbank.notification_service.rest.service.MapperService;
 import com.modernbank.notification_service.rest.service.events.ISendNotificationProducer;
@@ -34,5 +36,26 @@ public class SendNotificationProducerImpl implements ISendNotificationProducer {
         model.setUserId(request.getUserId());// Ensure userId is set in the model from the request otherwise it might be null
         chatNotificationModelKafkaTemplate.send("chat-notification-send", model);
         log.info("Sent chat notification message to Kafka topic");
+    }
+
+    @Override
+    public void setMaintenanceMode(SetMaintenanceModeRequest request) {
+        NotificationMessage notificationMessage = new NotificationMessage();
+        notificationMessage.setType("MAINTENANCE");
+        notificationMessage.setTitle(String.valueOf(request.isMaintenanceMode()).toUpperCase());
+        notificationMessage.setMessage(request.getMessage());
+        notificationMessage.setUserId("BROADCAST");
+
+        notificationKafkaTemplate.send("notification-send-no-persist", notificationMessage);
+    }
+
+    @Override
+    public void forceLogoutUser(ForceLogoutUserRequest request) {
+        NotificationMessage notificationMessage = new NotificationMessage();
+        notificationMessage.setType("FORCE_LOGOUT");
+        notificationMessage.setUserId(request.getLogoutUserId());
+        notificationMessage.setMessage(request.getReason());
+
+        notificationKafkaTemplate.send("notification-send-no-persist", notificationMessage);
     }
 }

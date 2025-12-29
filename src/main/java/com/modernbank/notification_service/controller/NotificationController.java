@@ -1,14 +1,11 @@
 package com.modernbank.notification_service.controller;
 
 import com.modernbank.notification_service.api.dto.NotificationDTO;
-import com.modernbank.notification_service.api.request.BaseRequest;
-import com.modernbank.notification_service.api.request.DeleteNotificationRequest;
-import com.modernbank.notification_service.api.request.MarkAsReadNotificationRequest;
+import com.modernbank.notification_service.api.request.*;
 import com.modernbank.notification_service.api.response.GetNotificationsResponse;
 import com.modernbank.notification_service.api.NotificationControllerApi;
 
-import com.modernbank.notification_service.api.request.NotificationMessage;
-import com.modernbank.notification_service.rest.response.BaseResponse;
+import com.modernbank.notification_service.api.response.BaseResponse;
 import com.modernbank.notification_service.rest.service.MapperService;
 import com.modernbank.notification_service.rest.service.NotificationService;
 import com.modernbank.notification_service.rest.service.events.ISendNotificationProducer;
@@ -31,7 +28,7 @@ public class NotificationController implements NotificationControllerApi {
     private final MapperService mapperService;
 
     @Override
-    public BaseResponse sendNotification(@RequestBody NotificationMessage message) {
+    public BaseResponse sendNotification(NotificationMessage message) {
         sendNotificationProducer.produceNotificationSend(message);
         return new BaseResponse("Notification sent successfully");
     }
@@ -51,5 +48,17 @@ public class NotificationController implements NotificationControllerApi {
     public BaseResponse deleteNotification(DeleteNotificationRequest request) {
         notificationService.deleteNotification(request.getNotificationId());
         return new BaseResponse("Notification deleted successfully");
+    }
+
+    @Override
+    public BaseResponse setMaintenanceMode(SetMaintenanceModeRequest request) {
+        sendNotificationProducer.setMaintenanceMode(request);
+        return new BaseResponse("Maintenance mode updated successfully");
+    }
+
+    @Override
+    public BaseResponse forceLogoutUser(ForceLogoutUserRequest request) {
+        sendNotificationProducer.forceLogoutUser(request);
+        return new BaseResponse("User logout forced successfully");
     }
 }

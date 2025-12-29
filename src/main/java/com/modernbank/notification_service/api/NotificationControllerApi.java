@@ -1,11 +1,8 @@
 package com.modernbank.notification_service.api;
 
-import com.modernbank.notification_service.api.request.BaseRequest;
-import com.modernbank.notification_service.api.request.DeleteNotificationRequest;
-import com.modernbank.notification_service.api.request.MarkAsReadNotificationRequest;
+import com.modernbank.notification_service.api.request.*;
 import com.modernbank.notification_service.api.response.GetNotificationsResponse;
-import com.modernbank.notification_service.api.request.NotificationMessage;
-import com.modernbank.notification_service.rest.response.BaseResponse;
+import com.modernbank.notification_service.api.response.BaseResponse;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,4 +19,10 @@ public interface NotificationControllerApi {
 
     @PostMapping(value = "/delete")
     BaseResponse deleteNotification(@RequestBody DeleteNotificationRequest request);
+
+    @PostMapping(value = "/admin/set-maintenance-mode")
+    BaseResponse setMaintenanceMode(@RequestBody SetMaintenanceModeRequest request);
+
+    @PostMapping(value = "/admin/force-logout-user")
+    BaseResponse forceLogoutUser(@RequestBody ForceLogoutUserRequest request);
 }
