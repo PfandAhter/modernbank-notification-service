@@ -4,9 +4,9 @@ logging:
 
 spring:
   datasource:
-    password: springstudent
-    username: springstudent
-    url: jdbc:mysql://localhost:3306/modern_bank_notification_service
+    password: ${DB_PASSWORD}
+    username: ${DB_USERNAME}
+    url: ${DATABASE_URL}
   jpa:
     properties:
       javax:
@@ -19,12 +19,12 @@ spring:
 
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     consumer:
       auto-offset-reset: earliest
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
