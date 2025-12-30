@@ -39,3 +39,17 @@ spring:
     banner-mode: off
 server:
   port: 8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, prometheus, circuitbreakers, circuitbreakerevents
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    export:
+      enabled: true
+    tags:
+      application: ${spring.application.name}
