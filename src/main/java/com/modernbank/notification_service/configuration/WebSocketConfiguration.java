@@ -24,13 +24,22 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     public void registerStompEndpoints(StompEndpointRegistry registry){
         registry
                 .addEndpoint("/notification-websocket")
-                .setAllowedOriginPatterns("http://localhost:8080", "http://localhost:3000")
+                .setAllowedOriginPatterns(
+                        "http://localhost:8080",
+                        "http://localhost:3000",
+                        "https://www.bakirbank.online",
+                        "https://bakirbank.online"
+                )
                 .withSockJS();
-
 
         registry
                 .addEndpoint("/chat-websocket")
-                .setAllowedOriginPatterns("http://localhost:8080", "http://localhost:3000")
+                .setAllowedOriginPatterns(
+                        "http://localhost:8080",
+                        "http://localhost:3000",
+                        "https://www.bakirbank.online",
+                        "https://bakirbank.online"
+                )
                 .withSockJS();
     }
 }
